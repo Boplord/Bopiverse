@@ -1,0 +1,385 @@
+/* Root & Reset */
+html, body { height: 100%; }
+*, *::before, *::after { box-sizing: border-box; }
+
+:root{
+  --header-h: 64px;
+  --footer-h: 30px;
+  --gap: 16px;
+}
+html { scroll-padding-top: var(--header-h); }
+
+/* Base Typography & Colors */
+body {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0 1rem;
+}
+
+h1, h2 { margin-top: 0; }
+
+a { color: #fff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Accessibility & Focus */
+a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #fff;
+  color: #000;
+  padding: .5rem 1rem;
+  z-index: 4000;
+  transition: top .2s ease;
+  text-decoration: none;
+  font-weight: bold;
+}
+.skip-link:focus { top: 0; }
+
+/* Layout: Header, Main, Footer */
+main {
+  flex: 1 0 auto;
+  padding-top: calc(var(--header-h) + 8px);
+}
+
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 3000;
+  height: var(--header-h);
+  background: #000;
+  border-bottom: 1px solid #333;
+  box-shadow: 0 2px 0 #333;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  overflow: hidden;
+}
+header::before { content: ""; }
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1;
+  justify-self: center;
+}
+
+.site-nav,
+header nav {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.site-nav a,
+header nav a {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.site-nav a[aria-current="page"],
+header nav a[aria-current="page"] {
+  border-bottom: 2px solid #fff;
+  padding-bottom: 2px;
+}
+
+/* Visually hidden but focusable checkbox */
+.nav-toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.hamburger  { display: none; }
+.hamburger:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+/* Show focus on the visible hamburger when the hidden checkbox is focused */
+.nav-toggle:focus-visible + .hamburger {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+
+footer {
+  margin-top: auto;
+  flex-shrink: 0;
+  height: var(--footer-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  font-size: .9rem;
+  color: #aaa;
+  border-top: 1px solid #333;
+}
+
+/* Components: Gallery, Media, Forms */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: start;
+}
+
+img {
+  display: block;
+  margin: 0;
+  border: 2px solid #444;
+}
+
+figure {
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+figure img {
+  width: 100%;
+  height: auto;
+  border: 2px solid #fff;
+}
+figcaption { margin: 0; }
+
+.field { margin: 0 0 .75rem 0; }
+.field label {
+  display: block;
+  margin-bottom: .25rem;
+}
+input, textarea, button {
+  font: inherit;
+  color: #fff;
+  background: #111;
+  border: 1px solid #333;
+  padding: .5rem .75rem;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+button {
+  cursor: pointer;
+  background: #1a1a1a;
+  border-color: #444;
+}
+button:hover { background: #222; }
+.disclaimer { color: #aaa; font-size: .9rem; }
+
+/* Component: NFT Cards (Images) */
+.nft-card {
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+}
+.nft-card a {
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.nft-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid #fff;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
+}
+.nft-card:hover,
+.nft-card:focus-within {
+  z-index: 10;
+}
+.nft-card a:hover img,
+.nft-card a:focus img {
+  transform: scale(1.03);
+  filter: brightness(0.85);
+}
+.gallery a:focus-visible { outline: none; }
+.nft-card a:focus-visible img {
+  transform: scale(1.03);
+  filter: brightness(0.85);
+}
+.nft-card a:focus:not(:hover):not(:focus-visible) img {
+  transform: none;
+  filter: none;
+}
+
+/* Page: About */
+body:has(header nav a[aria-current="page"][href*="about"]) #main {
+  max-width: 72ch;
+  margin-inline: auto;
+  text-align: left;
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+body:has(header nav a[aria-current="page"][href*="about"]) #main h2 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.75rem;
+  letter-spacing: 0.01em;
+}
+
+body:has(header nav a[aria-current="page"][href*="about"]) #main p {
+  margin: 0 0 1rem;
+  line-height: 1.7;
+  font-size: 1.0625rem;
+  color: #e8e8e8;
+}
+
+body:has(header nav a[aria-current="page"][href*="about"]) #main p:first-of-type {
+  font-size: 1.125rem;
+  color: #f2f2f2;
+}
+
+body:has(header nav a[aria-current="page"][href*="about"]) #main p:last-of-type {
+  text-align: center;
+  margin-top: 1.25rem;
+}
+
+body:has(header nav a[aria-current="page"][href*="about"]) #main em { color: #f0f0f0; }
+body:has(header nav a[aria-current="page"][href*="about"]) #main strong { font-weight: 700; }
+
+.external-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: #cccccc;
+}
+.external-link a {
+  color: #fff;
+  text-decoration: underline;
+}
+.external-link a:hover {
+  text-decoration: none;
+  color: #aaa;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  header h1 { font-size: 1.6rem; }
+
+  .hamburger {
+    display: inline-flex;
+    justify-self: end;
+    width: 32px;
+    height: 24px;
+    position: relative;
+    align-items: center;
+    cursor: pointer;
+  }
+  .hamburger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    transform-origin: center;
+    transition: transform .2s ease, opacity .2s ease;
+  }
+  .hamburger span:nth-child(1) { transform: translateY(-8px); }
+  .hamburger span:nth-child(2) { transform: translateY(0); }
+  .hamburger span:nth-child(3) { transform: translateY(8px); }
+
+  .site-nav,
+  header nav {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    z-index: 2500;
+    display: grid;
+    gap: 0;
+    background: #000;
+    border-bottom: 1px solid #333;
+    padding: 0.5rem 1rem;
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+    transition: none;
+    will-change: transform, opacity;
+  }
+
+  .nav-toggle:not(:checked) ~ .site-nav a,
+  .nav-toggle:not(:checked) ~ nav a {
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .site-nav a,
+  header nav a {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    text-align: right;
+  }
+
+  .nav-toggle:checked ~ .site-nav,
+  .nav-toggle:checked ~ nav {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+    transition: transform .25s ease, opacity .2s ease;
+  }
+
+  .nav-toggle:checked + .hamburger span:nth-child(2) { opacity: 0; }
+  .nav-toggle:checked + .hamburger span:nth-child(1) { transform: translateY(0) rotate(45deg); }
+  .nav-toggle:checked + .hamburger span:nth-child(3) { transform: translateY(0) rotate(-45deg); }
+}
+
+@media (min-width: 701px) {
+  .site-nav,
+  header nav {
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav,
+  header nav,
+  .nav-toggle:checked ~ .site-nav,
+  .nav-toggle:checked ~ nav {
+    transition: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  body:has(header nav a[aria-current="page"][href*="about"]) #main h2 {
+    font-size: 1.5rem;
+  }
+  body:has(header nav a[aria-current="page"][href*="about"]) #main p {
+    font-size: 1rem;
+  }
+  body:has(header nav a[aria-current="page"][href*="about"]) #main p:first-of-type {
+    font-size: 1.0625rem;
+  }
+}

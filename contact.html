@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bopiverse - Contact</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Contact">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header>
+    <h1>Bopiverse</h1>
+
+    <input id="nav-toggle" class="nav-toggle" type="checkbox" aria-hidden="true">
+    <label for="nav-toggle" class="hamburger" role="button" tabindex="0" aria-label="Open menu" aria-controls="primary-nav" title="Menu">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav id="primary-nav" class="site-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <h2>Contact</h2>
+    <form action="#" method="post" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" required>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="name@example.com" required>
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Write your message…" required></textarea>
+      </div>
+
+      <button type="submit">Send</button>
+    </form>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© 2025 Jim H. Björklund</p>
+  </footer>
+
+</body>
+</html>
